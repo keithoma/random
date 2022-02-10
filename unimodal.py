@@ -12,10 +12,11 @@ def unimodal(a):
     """
     if len(a) == 0: return 0
 
-    current_length = 1
-    max_length     = 0
-    going_up       = None # this checks if we are going up or not; we start by going down
-    start_index    = 0    # was not needed for the assignment
+    current_length   = 1
+    overlap          = 0
+    max_length       = 0
+    going_up         = None # this checks if we are going up or not; we start by going down
+    start_index      = 0    # was not needed for the assignment
 
     def last(i): return a[i - 1]
     def nxt(i): return a[i]
@@ -23,37 +24,48 @@ def unimodal(a):
     for i in range(1, len(a)):
 
         # at the beginning, we have to find out if we are going up or not
-        if last(i) == nxt(i) and going_up is None:
+        if going_up is None and last(i) == nxt(i):
             current_length += 1
+            overlap += 1
 
-        elif last(i) < nxt(i) and going_up is None:
+        elif going_up is None and last(i) < nxt(i):
             current_length += 1
             going_up = True
 
-        elif last(i) > nxt(i) and going_up is None:
+        elif going_up is None and last(i) > nxt(i):
             current_length += 1
             going_up = False
 
         # in the process of going up
-        elif last(i) <= nxt(i) and going_up is True:
+        elif last(i) == nxt(i) and going_up is True:
             current_length += 1
+            going_up = True 
+
+        elif last(i) < nxt(i) and going_up is True:
+            current_length += 1
+            overlap = 0
             going_up = True
 
+        elif last(i) > nxt(i) and going_up is True:
+            current_length += 1
+            overlap = 0
+            going_up = False
+
         # we were going down and here it ends
-        elif last(i) < nxt(i) and going_up is False:
+        elif going_up is False and last(i) == nxt(i):
+            current_length += 1
+            overlap += 1
+            going_up = False
+
+        elif going_up is False and last(i) < nxt(i):
             if max_length < current_length:
                 max_length = current_length
                 start_index = i - current_length
-            current_length = 2
+            current_length = overlap + 2
             going_up = True
 
-        # this is the tipping point
-        elif last(i) > nxt(i) and going_up is True:
-            current_length += 1
-            going_up = False
-
         # in the process of going down
-        elif last(i) >= nxt(i) and going_up is False:
+        elif going_up is False and last(i) > nxt(i):
             current_length += 1
             going_up = False
 
@@ -77,6 +89,7 @@ def main():
         plt.show()
 
     examples = [
+        [1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1],
         [0],
         [1],
         [1, 1, 1, 1, 2, 2],
