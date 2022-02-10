@@ -1,6 +1,9 @@
 #! /usr/bin/env python3
 
 """
+Authors:
+Tanmay Sule
+Kei Thoma
 """
 
 def unimodal(a):
@@ -9,41 +12,31 @@ def unimodal(a):
     """
     if len(a) == 0: return 0
 
-    max_length = 0
     current_length = 1
+    max_length     = 0
 
-    # modes
-    # None  : Current length is 0 and looking for the first bump.
-    # True  : 
-    # False :
-    mode = None
+    mode = False # this checks if we are going up or not; we start by going down
+
+    # was not needed
+    start_index = 0
 
     def last(i): return a[i - 1]
     def next(i): return a[i]
 
     for i in range(1, len(a)):
 
-        print("currently: {}".format(current_length))
-
-        # current_length is 0 and we find an element that is going up
-        if last(i) <= next(i) and mode == None:
+        # in the process of going up
+        if last(i) <= next(i) and mode == True:
             current_length += 1
             mode = True
-    
-        # in the process of going up
-        elif last(i) <= next(i) and mode == True:
-            current_length += 1
 
         # we were going down and here it ends
-        elif last(i) <= next(i) and mode == False:
+        elif last(i) < next(i) and mode == False:
             if max_length < current_length:
                 max_length = current_length
-            current_length = 1
-            mode = None
-
-        # current_length is 0, so we don't care about this
-        elif last(i) > next(i) and mode == None:
-            pass
+                start_index = i - current_length
+            current_length = 2
+            mode = True
         
         # this is the tipping point
         elif last(i) > next(i) and mode == True:
@@ -51,24 +44,40 @@ def unimodal(a):
             mode = False
         
         # in the process of going down
-        elif last(i) > next(i) and mode == False:
+        elif last(i) >= next(i) and mode == False:
             current_length += 1
+            mode = False
 
+
+
+        # print("last = {}, next = {} | mode: {}, currently: {}".format(last(i), next(i), mode, current_length))
     
-    return max_length
+
+    if max_length < current_length:
+        max_length = current_length
+    return max_length, start_index
 
 def main():
+    import random
+    def test_example(a=[random.randint(1, 10) for n in range(10)]):
+        length, index = unimodal(a)
+        print("Example list   : {}".format(a))
+        print("Maximal length : {}".format(length))
+        print("Sequence       : {}".format(a[index : index + length]))
+        print()
+
+    test_example()
+
     examples = [
-        [9],                             #1
-        [8, 7],                          #2
-        [4, 5, 3, 2, 1, 3, 6, 4, 7],     #5
-        [10, 9, 8, 10, 6, 5, 4, 3, 2, 3] #7
+        [10, 9, 8, 7],                    #4
+        [4, 5, 3, 2, 1, 3, 6, 4, 7],      #5
+        [10, 9, 8, 10, 6, 5, 4, 3, 2, 3], #7
+        [10, 9, 8, 7, 6, 5, 4, 3, 2, 3],   #9
+        [10, 9, 8, 7, 6, 5, 4, 3, 2, 2, 3] #10
     ]
 
-    print("hi")
-
     for a in examples:
-        print(unimodal(a))
+        test_example(a)
 
 if __name__ == "__main__":
     main()
