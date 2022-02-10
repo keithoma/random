@@ -37,21 +37,21 @@ def unimodal(a):
             going_up = False
 
         # in the process of going up
-        elif last(i) == nxt(i) and going_up is True:
+        elif going_up is True and last(i) == nxt(i):
             current_length += 1
             going_up = True 
 
-        elif last(i) < nxt(i) and going_up is True:
+        elif going_up is True and last(i) < nxt(i):
             current_length += 1
             overlap = 0
             going_up = True
 
-        elif last(i) > nxt(i) and going_up is True:
+        elif going_up is True and last(i) > nxt(i):
             current_length += 1
             overlap = 0
             going_up = False
 
-        # we were going down and here it ends
+        # if we are going down
         elif going_up is False and last(i) == nxt(i):
             current_length += 1
             overlap += 1
@@ -64,7 +64,6 @@ def unimodal(a):
             current_length = overlap + 2
             going_up = True
 
-        # in the process of going down
         elif going_up is False and last(i) > nxt(i):
             current_length += 1
             going_up = False
