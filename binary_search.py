@@ -28,8 +28,8 @@ def main():
     print("List  : {}".format(a))
     print("Index : {} | Key : {}".format(index, key))
     print()
-    print("Solution index: {}".format(solution))
-    print("Solution index: {}".format(element))
+    print("Solution index : {}".format(solution))
+    print("Solution key   : {}".format(element))
 
 if __name__ == "__main__":
     main()
