@@ -15,7 +15,7 @@ def unimodal(a):
     current_length = 1
     max_length     = 0
 
-    mode = False # this checks if we are going up or not; we start by going down
+    going_up = False # this checks if we are going up or not; we start by going down
 
     # was not needed
     start_index = 0
@@ -26,27 +26,27 @@ def unimodal(a):
     for i in range(1, len(a)):
 
         # in the process of going up
-        if last(i) <= next(i) and mode == True:
+        if last(i) <= next(i) and going_up == True:
             current_length += 1
-            mode = True
+            going_up = True
 
         # we were going down and here it ends
-        elif last(i) < next(i) and mode == False:
+        elif last(i) < next(i) and going_up == False:
             if max_length < current_length:
                 max_length = current_length
                 start_index = i - current_length
             current_length = 2
-            mode = True
+            going_up = True
         
         # this is the tipping point
-        elif last(i) > next(i) and mode == True:
+        elif last(i) > next(i) and going_up == True:
             current_length += 1
-            mode = False
+            going_up = False
         
         # in the process of going down
-        elif last(i) >= next(i) and mode == False:
+        elif last(i) >= next(i) and going_up == False:
             current_length += 1
-            mode = False
+            going_up = False
 
     if max_length < current_length:
         max_length = current_length
@@ -67,7 +67,7 @@ def main():
         plt.show()
 
     for n in range(10):
-        test_example([random.randint(1, 100) for n in range(100)])
+        test_example([random.randint(1, 10) for n in range(10)])
 
     examples = [
         [10, 9, 8, 7],                     #4
