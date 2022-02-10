@@ -4,14 +4,17 @@
 Author: Kei Thoma
 """
 
-def binary_search(a, key, index=0):
+def binary_search(a, key, index=0, iteration=0):
     """
     a (list) : a sorted list
     """
+    if len(a) == 1 and a[0] != key:
+        return -1
+
     m = len(a) // 2 # m for middle of the array
     if   a[m] == key: return index + m
-    elif a[m] >  key: return binary_search(a[0:m], key, index)
-    elif a[m] <  key: return binary_search(a[m:], key, index + m)
+    elif a[m] >  key: return binary_search(a[0:m], key, index, iteration + 1)
+    elif a[m] <  key: return binary_search(a[m:], key, index + m, iteration + 1)
 
 def main():
     import random
