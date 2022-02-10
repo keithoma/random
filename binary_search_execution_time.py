@@ -2,7 +2,7 @@
 
 import binary_search
 
-class BinarySearchAlgorithmicEfficiency():
+class BinarySearchExecutionTime():
 
     @staticmethod
     def linear_search(a, key):
