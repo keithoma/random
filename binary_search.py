@@ -9,9 +9,9 @@ def binary_search(a, key, index=0):
     a (list) : a sorted list
     """
     m = len(a) // 2 # m for middle of the array
-    if a[m] == key:            return index + m
-    elif a[len(a) // 2] > key: return binary_search(a[0:m], key, index)
-    elif a[len(a) // 2] < key: return binary_search(a[m:], key, index + m)
+    if   a[m] == key: return index + m
+    elif a[m] >  key: return binary_search(a[0:m], key, index)
+    elif a[m] <  key: return binary_search(a[m:], key, index + m)
 
 def main():
     import random
