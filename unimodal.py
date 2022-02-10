@@ -48,30 +48,31 @@ def unimodal(a):
             current_length += 1
             mode = False
 
-
-
-        # print("last = {}, next = {} | mode: {}, currently: {}".format(last(i), next(i), mode, current_length))
-    
-
     if max_length < current_length:
         max_length = current_length
     return max_length, start_index
 
 def main():
     import random
-    def test_example(a=[random.randint(1, 10) for n in range(10)]):
+    import matplotlib.pyplot as plt
+
+    def test_example(a):
         length, index = unimodal(a)
         print("Example list   : {}".format(a))
         print("Maximal length : {}".format(length))
         print("Sequence       : {}".format(a[index : index + length]))
         print()
+        plt.plot([x for x in range(len(a))], a)
+        plt.plot([x for x in range(index, index + length)], a[index : index + length])
+        plt.show()
 
-    test_example()
+    for n in range(10):
+        test_example([random.randint(1, 100) for n in range(100)])
 
     examples = [
-        [10, 9, 8, 7],                    #4
-        [4, 5, 3, 2, 1, 3, 6, 4, 7],      #5
-        [10, 9, 8, 10, 6, 5, 4, 3, 2, 3], #7
+        [10, 9, 8, 7],                     #4
+        [4, 5, 3, 2, 1, 3, 6, 4, 7],       #5
+        [10, 9, 8, 10, 6, 5, 4, 3, 2, 3],  #7
         [10, 9, 8, 7, 6, 5, 4, 3, 2, 3],   #9
         [10, 9, 8, 7, 6, 5, 4, 3, 2, 2, 3] #10
     ]
