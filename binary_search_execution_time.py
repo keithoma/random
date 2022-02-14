@@ -23,10 +23,10 @@ class SearchAlgorithmExecutionTime():
         self.repetition = _repetition
         self.functions  = _functions
     
-        self.create_test_lists(self, self.n)
+        self.create_test_lists(self.n)
 
     def create_test_lists(self, n):
-        a    = [random.shuffle(range(n)) for _ in range(self.repetition)]
+        a    = [random.shuffle(list(range(n))) for _ in range(self.repetition)]
         keys = [random.randrange(n) for _ in range(self.repetition)]
         self.test_set = zip(a, keys)
         return self.test_set
@@ -80,8 +80,6 @@ class SearchAlgorithmExecutionTime():
         plt.show()
 
 
-
-
 def linear_search(a, key):
     for i in range(len(a)):
         if a[i] == key:
@@ -89,7 +87,7 @@ def linear_search(a, key):
     return -1
 
 def main():
-    pass
+    SAET = SearchAlgorithmExecutionTime(binary_search.binary_search)
 
 if __name__ == "__main__":
     main()
