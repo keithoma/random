@@ -28,7 +28,7 @@ class SearchAlgorithmExecutionTime():
     def create_test_lists(self, n):
         a    = [random.shuffle(list(range(n))) for _ in range(self.repetition)]
         keys = [random.randrange(n) for _ in range(self.repetition)]
-        self.test_set = zip(a, keys)
+        self.test_set = list(zip(a, keys))
         return self.test_set
 
     def test_performance(self, _a, _key, _func):
@@ -88,6 +88,7 @@ def linear_search(a, key):
 
 def main():
     SAET = SearchAlgorithmExecutionTime(binary_search.binary_search)
+    SAET.plot(SAET.create_data(binary_search.binary_search, 100, 200))
 
 if __name__ == "__main__":
     main()
