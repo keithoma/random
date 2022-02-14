@@ -7,15 +7,21 @@ import matplotlib.pyplot as plt
 
 import binary_search
 
-class SearchAlgorithmData():
-    def __init__(self, _settings, _data):
-        self.start_n    = _settings["start_n"]
-        self.end_n      = _settings["end_n"]
-        self.repetition = _settings["repetition"]
-
-        self.best_case_list    = _data["best_case_list"]
-        self.average_case_list = _data["average_case_list"]
-        self.worst_case_list   = _data["worst_case_list"]
+class SearchAlgorithmData:
+    def __init__(self, _start_n, _end_n, _repetition,
+    _best_case_list, _average_case_list, _worst_case_list):
+        """
+        _start_n (int)
+        _end_n (int)
+        _repetition (int)
+        """
+        self.start_n    = _start_n
+        self.end_n      = _end_n
+        self.repetition = _repetition
+        
+        self.best_case_list    = _best_case_list
+        self.average_case_list = _average_case_list
+        self.worst_case_list   = _worst_case_list
 
 class SearchAlgorithmExecutionTime():
     def __init__(self, _functions, _n=100, _repetition=100):
@@ -25,10 +31,17 @@ class SearchAlgorithmExecutionTime():
     
         self.create_test_lists(self.n)
 
+        self.data = None
+
+    @staticmethod
+    def true_shuffle(a):
+        random.shuffle(a)
+        return a 
+
     def create_test_lists(self, n):
-        a    = [random.shuffle(list(range(n))) for _ in range(self.repetition)]
+        a    = [self.true_shuffle(list(range(n))) for _ in range(self.repetition)]
         keys = [random.randrange(n) for _ in range(self.repetition)]
-        self.test_set = list(zip(a, keys))
+        self.test_set = a
         return self.test_set
 
     def test_performance(self, _a, _key, _func):
@@ -88,7 +101,7 @@ def linear_search(a, key):
 
 def main():
     SAET = SearchAlgorithmExecutionTime(binary_search.binary_search)
-    SAET.plot(SAET.create_data(binary_search.binary_search, 100, 200))
+    print(SAET.test_set)
 
 if __name__ == "__main__":
     main()
