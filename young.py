@@ -9,7 +9,6 @@ def delete_minimal(_mat):
     m = len(_mat[0])
 
     def sort_recursively(i, j):
-        print(_mat)
         if i + 1 >= n and j + 1 >= m:
             return _mat
         if not i + 1 >= n:
