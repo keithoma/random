@@ -84,7 +84,7 @@ def main():
     # obj = SearchAlgorithmTestSet(10, 20, 3)
     # print(obj.list_of_keys_and_a(2))
 
-    obj = SearchAlgorithmExecutionTime(100, 1100, linear_search, 200)
+    obj = SearchAlgorithmExecutionTime(100, 1100, linear_search, 500)
     obj.plot()
     
 
