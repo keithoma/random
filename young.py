@@ -24,6 +24,15 @@ def delete_minimal(_mat):
     _mat[0][0] = INF
     return sort_recursively(0, 0)
 
+def put_new(mat, element, i, j):
+    mat[i][j] = element
+    
+    def sort_recursively(i, j):
+        if not i - 1 < 0:
+            if mat[i - 1][j] >= mat[i][j - 1]:
+                mat[i][j]
+
+
 def main():
     mat = np.array([
         [1, 2, 3, 4],
