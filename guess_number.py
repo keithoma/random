@@ -13,6 +13,9 @@ def check_user_input():
             print("Please guess an integer!")
             continue
 
+
+
+
 def give_hint(solution, user_input):
     if solution == user_input:
         print("You have guessed correctly!")
@@ -20,9 +23,32 @@ def give_hint(solution, user_input):
 def ask_to_guess_again():
     pass
 
+def main2():
+    try:
+        user_input = input()
+        user_input = int(user_input)
+    
+    except ValueError:
+        print("Some error!")
+
+
+def do_continue():
+    answer = input("Do you want to continue?").lower()[0]
+
+    if answer == "y":
+        pass
+        # do continue
+    elif answer == "n":
+        pass
+        # do not continue, exit program
+    else:
+        print("Give an answer!")
+
+    
+
 def main():
-    while True:
-        check_user_input()
+    user_input = input()
+    user_input = int(user_input)
 
 if __name__ == "__main__":
     main()
