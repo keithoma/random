@@ -39,6 +39,11 @@ class Auxiliary():
                 return True
         return False
 
+    # TODO
+    @staticmethod
+    def read_script():
+        pass
+
 class EventType(Enum):
     Story = 0
 
